@@ -1,0 +1,4 @@
+#+TITLE: Etch-A-Sketch
+#+AUTHOR: Bilel Hamitouche
+
+This is a simple etch-a-sketch game for the browser written in HTML, CSS and JavaScript. 
