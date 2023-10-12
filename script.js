@@ -1,13 +1,14 @@
 
 // gridSize
 let gridSize = 16;
+let size = 16;
 
 // create the grid
-function createGrid(size) {
+function createGrid(gridsize) {
     let columns = [];
     let cells = [];
-    grid = document.querySelector('.grid');
-    for(let i = 0; i < size; i++) {
+    const grid = document.querySelector('.grid');
+    for(let i = 0; i < gridsize; i++) {
 	columns[i] = document.createElement('div');
 	columns[i].classList.add('column');
 	for(let j = 0; j < size; j++) {
@@ -17,11 +18,18 @@ function createGrid(size) {
 	}
 	grid.appendChild(columns[i]);
     }
+
+    // Event listener for hover effect
+    const gridList = document.querySelectorAll('.cell');
+    for(let i = 0; i < gridList.length; i++) {
+        gridList[i].addEventListener('mouseover', () => {
+        	gridList[i].style.backgroundColor = color;
+        })
+    }
 }
 
-window.onLoad = createGrid(gridSize);
 
-let color = '#282a36';
+let color = '#1a1a1d';
 
 // Random color function
 function setRandom() {
@@ -31,9 +39,31 @@ function setRandom() {
 // Clear grid function
 function clearGrid() {
     document.querySelectorAll('.cell').forEach((item) => {
-	item.style.backgroundColor = '#f8f8f2';
+	item.style.backgroundColor = '#6f2232';
     })
 }
+
+function removeGrid() {
+    const grid = document.querySelector('.grid');
+    for(let i = 0; i < size; i++) {
+	grid.removeChild(grid.firstChild);
+    }
+
+    // Remove event listeners 
+    const gridList = document.querySelectorAll('.cell');
+    for(let i = 0; i < gridList.length; i++) {
+        gridList[i].removeEventListener('mouseover', () => {
+        	gridList[i].style.backgroundColor = color;
+        })
+    }
+}
+
+function changeGridSize() {
+    createGrid(size);
+}
+
+// Creating the grid on page load
+window.onLoad = createGrid(gridSize);
 
 // Event listener for buttons
 const normal = document.querySelector('.normal');
@@ -43,7 +73,7 @@ normal.addEventListener('click', () => {
 
 const eraser = document.querySelector('.eraser');
 eraser.addEventListener('click', () => {
-    color = '#f8f8f2';
+    color = '#6f2232';
 });
 
 const rainbow = document.querySelector('.rainbow');
@@ -56,15 +86,18 @@ clear.addEventListener('click', () => {
     clearGrid();
 });
 
+const resize = document.querySelector('.size');
+resize.addEventListener('click', () => {
+    removeGrid();
+    size = prompt('Input a new size: ');
+    if (size > 100) {
+	size = 100;
+    }
+    changeGridSize();
+})
+
 const picker = document.querySelector('.picker');
 picker.addEventListener('change', () => {
     color = picker.value;
 })
 
-// Event listener for hover effect
-const gridList = document.querySelectorAll('.cell');
-for(let i = 0; i < gridList.length; i++) {
-    gridList[i].addEventListener('mouseover', () => {
-	gridList[i].style.backgroundColor = color;
-    })
-}
