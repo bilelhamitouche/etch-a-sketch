@@ -2,6 +2,7 @@
 // gridSize
 let gridSize = 16;
 let size = 16;
+let type = 'normal';
 
 // create the grid
 function createGrid(gridsize) {
@@ -76,8 +77,8 @@ eraser.addEventListener('click', () => {
     color = '#6f2232';
 });
 
-const rainbow = document.querySelector('.rainbow');
-rainbow.addEventListener('click', () => {
+const random = document.querySelector('.random');
+random.addEventListener('click', () => {
     setRandom();
 });
 
